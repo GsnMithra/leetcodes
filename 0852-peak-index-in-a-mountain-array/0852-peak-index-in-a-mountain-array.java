@@ -1,17 +1,13 @@
 class Solution {
     public int peakIndexInMountainArray(int[] arr) {
-        int start=0;
-        int end=arr.length - 1;
-        int mid=start+(end-start)/2;
-        while(start<end){
-            if(arr[mid]<arr[mid+1]){
-                start=mid+1;
-            }
-            else{
-                end=mid;
-            }
-            mid=start+(end-start)/2;
-        }
-    return start;
+        return binaryMaximum(arr, 0, arr.length - 1);
+    }
+    
+    public static int binaryMaximum(int[] nums, int first, int last) {
+        int mid = first + (last - first) / 2;
+        if(nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) return mid;
+        if(nums[mid] > nums[mid + 1]) return binaryMaximum(nums, first, mid);
+        if(nums[mid] < nums[mid + 1]) return binaryMaximum(nums, mid + 1, last);
+        return -1;
     }
 }
